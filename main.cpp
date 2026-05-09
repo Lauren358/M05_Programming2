@@ -338,7 +338,12 @@ void printRentalPage(sqlite3_stmt *res, int rowsPerPage, int startNum)
 //starter code ends
 //where the coding begins 
 void viewCustomer(sqlite3 *db)
-{  
+{  int totalRows = 0;
+    int result;
+    int menuNum = 1;
+    int choice;
+    
+    
     string query =
         "SELECT customer_id, last_name, first_name "
         "FROM customer "
@@ -361,8 +366,7 @@ void viewCustomer(sqlite3 *db)
         return;
     }
 
-    int totalRows = 0;
-    int result;
+
 
     // Count rows
     do
@@ -376,9 +380,9 @@ void viewCustomer(sqlite3 *db)
 
     sqlite3_reset(pRes);
 
-    cout << "\nCustomer List\n" << endl;
+    cout << "\nPlease choose the customer you want to see:\n" << endl;
 
-    int menuNum = 1;
+    
 
     // Display customers
     while ((result = sqlite3_step(pRes)) == SQLITE_ROW)
@@ -394,7 +398,7 @@ void viewCustomer(sqlite3 *db)
         menuNum++;
     }
 
-    int choice;
+   
 
     cout << "\nChoose a customer: ";
     cin >> choice;
@@ -436,7 +440,6 @@ void viewCustomer(sqlite3 *db)
         "a.address, "
         "city.city, "
         "c.email, "
-        "c.active, "
         "c.last_update "
         "FROM customer c "
         "JOIN address a "
@@ -494,35 +497,26 @@ void viewCustomer(sqlite3 *db)
             reinterpret_cast<const char *>(
                 sqlite3_column_text(detailStmt, 5));
 
-        int active =
-            sqlite3_column_int(detailStmt, 6);
 
         string lastUpdate =
             reinterpret_cast<const char *>(
-                sqlite3_column_text(detailStmt, 7));
+                sqlite3_column_text(detailStmt, 6));
 
-        cout << "\nCustomer Information\n" << endl;
+        cout << "\n----Customer Information----\n" << endl;
 
         cout << "Name: "
              << firstName << " "
              << lastName << endl;
 
-        cout << "Phone: "
-             << phone << endl;
-
         cout << "Address: "
              << address << ", "
              << city << endl;
+             
+        cout << "Phone: "
+             << phone << endl;
 
         cout << "Email: "
              << email << endl;
-
-        cout << "Active: ";
-
-        if (active == 1)
-            cout << "Yes" << endl;
-        else
-            cout << "No" << endl;
 
         cout << "Last Update: "
              << lastUpdate << endl;
