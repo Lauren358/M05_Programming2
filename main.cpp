@@ -125,7 +125,7 @@ void viewRental(sqlite3 *db)
 				cin.clear();
 				cin.ignore(INT_MAX, '\n');
 			}
-			cout << "That is not a valid choice! Try again!" << endl;
+			cout << "That is not a valid choice, try again." << endl;
 			cout << "There are " << i << " rows in the result.  How many do you want to see per page?" << endl;
 		}
 		if (rowsPerPage > i)
@@ -150,7 +150,7 @@ void viewRental(sqlite3 *db)
 					cin.clear();
 					cin.ignore(INT_MAX, '\n');
 				}
-				cout << "That is not a valid choice! Try again!" << endl;
+				cout << "That is not a valid choice, try again." << endl;
 				cin >> choice;
 			}
 			if (choice == 0)
